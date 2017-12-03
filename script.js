@@ -1,11 +1,9 @@
 
 
 
-$(window).load(function() {
 
 
     $(function () {
-        const user = {}
 
 
 
@@ -37,46 +35,42 @@ $(window).load(function() {
 
 
 
-    function renderCity(rawData){
-        var render = ['<option value="">Select a state...</option>'];
-        var cities;
-        var json = JSON.parse(rawData);
+        function renderCity(rawData){
+            var render = ['<option value="">Select a state...</option>'];
+            var cities;
+            var json = JSON.parse(rawData);
 
 
-        for (var key in json){
-            render.push('<option value="'+ key +'">'+ json[key] +'</option>')
+            for (var key in json){
+                render.push('<option value="'+ key +'">'+ json[key] +'</option>')
 
-        };
+            };
 
-        $.ajax('cities.json').done(function(data){
-            cities = data
-        })
-        $('#select-country').html(render.join(''))
-        $('#select-country').selectize({
-            onChange: function(value){
-                var renderCities = [];
-                for (var key in cities){
-                if (+value === +cities[key].country){
-                    renderCities.push('<option value="'+ key +'">'+ cities[key].name +'</option>')
+            $.ajax('cities.json').done(function(data){
+                cities = data
+            })
+            $('#select-country').html(render.join(''))
+            $('#select-country').selectize({
+                onChange: function(value){
+                    var renderCities = [];
+                    for (var key in cities){
+                    if (+value === +cities[key].country){
+                        renderCities.push('<option value="'+ key +'">'+ cities[key].name +'</option>')
 
+                    }
+
+                    }
+                    $('#select-city').html(renderCities.join(''))
+                    $('#select-city').selectize()
                 }
-
-                }
-                $('#select-city').html(renderCities.join(''))
-                $('#select-city').selectize()
-            }
-        }) 
-    }
+            }) 
+        }
 
 
 
-    $.ajax('countries.json').done(renderCity);
-        
+        $.ajax('countries.json').done(renderCity);
+            
 
 
 
     }); 
-
-
-
-});
