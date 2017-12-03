@@ -10,9 +10,9 @@
         $('#step-1').on('keyup change blur', function (event) {
             var patterntest = this.email.checkValidity()
             if (!patterntest){
-                $(this.email).parent().addClass('has-error')
+                $(this.email).parent().addClass('has-error');
             }else{
-                $(this.email).parent().removeClass('has-error')
+                $(this.email).parent().removeClass('has-error');
             }
 
             if (this.name.value.length === 0 || (this.email.value.length === 0 || !patterntest)){
@@ -48,25 +48,27 @@
 
             $.ajax('cities.json').done(function(data){
                 cities = data
-            })
-            $('#select-country').html(render.join(''))
+            });
+
+            $('#select-country').html(render.join());
+
             $('#select-country').selectize({
                 onChange: function(value){
                     var renderCities = [];
                     for (var key in cities){
-                    if (+value === +cities[key].country){
-                        renderCities.push('<option value="'+ key +'">'+ cities[key].name +'</option>')
+                        if (+value === +cities[key].country){
+                            renderCities.push('<option value="'+ key +'">'+ cities[key].name +'</option>')
+                        };
 
-                    }
-
-                    }
-                    $('#select-city').html(renderCities.join(''))
-                    $('#select-city').selectize()
+                    };
+                    $('#select-city').html(renderCities.join(''));
+                    $('#select-city').selectize();
                 }
-            }) 
-        }
+            });
+        };
 
-
+        // $('#select-country').selectize();
+        $('#select-city').selectize();
 
         $.ajax('countries.json').done(renderCity);
             
